@@ -1,0 +1,10 @@
+.home-ouput{
+    display: grid;
+    height: 70vh;
+    width: 100%;
+    margin-top: 15px;
+}
+
+body{
+    display: block;
+}
