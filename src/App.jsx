@@ -6,13 +6,15 @@ import Home from "./pages/Home";
 import NuevaCita from "./pages/NuevaCita";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerCita from "./pages/VerCita";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Home/>a
+      <VerCita />
+      {/* <Home/> */}
       {/* <NuevaCita/> */}
       {/* <Login/> */}
       {/* <Register/> */}

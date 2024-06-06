@@ -7,7 +7,7 @@ function Login() {
     <>
       <Navbar />
       <section className="home-ouput flex justify-center gap-1 p-10">
-        <div className="w-96 h-72 p-3 bg-white border border-gray-200 rounded-lg shadow mt-12">
+        <div className="w-96 h-72 p-3 bg-white border border-gray-200 rounded-2xl shadow mt-12">
           <form class="max-w-sm mx-auto">
             <div class="mb-5">
               <label
@@ -39,12 +39,8 @@ function Login() {
               />
             </div>
             <div class="flex items-start mb-5">
-              <a
-                for="remember"
-                class=" font-light text-blue-400"
-                href="#"
-              >
-              Registrarme
+              <a for="remember" class=" font-light text-blue-400" href="#">
+                Registrarme
               </a>
             </div>
             <button
