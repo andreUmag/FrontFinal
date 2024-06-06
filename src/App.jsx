@@ -12,10 +12,10 @@ function App() {
 
   return (
     <>
-      {/* <Home/> */}
+      <Home/>a
       {/* <NuevaCita/> */}
       {/* <Login/> */}
-      <Register/>
+      {/* <Register/> */}
     </>
   );
 }
