@@ -3,9 +3,11 @@ import Navbar from "../components/Navbar";
 import { useHospital } from "../context/HospitalContext";
 import { TipoDocumento } from "../components/TipoDocumento";
 import { Eps } from "../components/Eps";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const { register, saveUser } = useHospital();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     lastName: "",
@@ -50,7 +52,7 @@ function Register() {
     try {
       await saveUser(user);
       await register(email, password);
-      navegacion("/login");
+      navigate("/login");
     } catch (err) {
       console.log("Error during authentication. Please try again.");
     }

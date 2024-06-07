@@ -10,30 +10,45 @@ import VerCita from "./pages/VerCita";
 import HomeDoctor from "./pages/HomeDoctor.jsx";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { HospitalProvider } from "./context/HospitalContext.jsx";
+import Agendar from "./pages/Agendar.jsx";
 
 function App() {
   const [session, setSession] = useState(null);
+  const [especialidad, setEspecialidad] = useState(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    console.log(session);
-  }, [session]);
+    console.log(user);
+  }, [user]);
   return (
     <HospitalProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={session ? <Home /> : <Navigate to="/login" />}
+            element={session ? <Home user={user} setEspecialidad={setEspecialidad} : <Navigate to="/login" />}
           />
         </Routes>
         <Routes>
           <Route
             path="/login"
-            element={<Login session={session} setSession={setSession} />}
+            element={
+              <Login
+                session={session}
+                setSession={setSession}
+                setUser={setUser}
+              />
+            }
           />
         </Routes>
         <Routes>
           <Route path="/registro" element={<Register />} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/agendar"
+            element={session ? <Agendar especialidad={especialidad} user={user} /> : <Navigate to="/login" />}
+          />
         </Routes>
         <Routes>
           <Route path="/nueva-cita" element={<NuevaCita />} />

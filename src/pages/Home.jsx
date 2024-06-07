@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import "../pages/Home.css";
 import CardMisCitas from "../components/CardMisCitas";
@@ -7,8 +7,17 @@ import NavbarFiltrar from "../components/NavbarFiltrar";
 import CardNewCita from "../components/CardNewCita";
 import { useHospital } from "../context/HospitalContext";
 
-function Home({ session, setSession }) {
-  const { citasPaciente, user } = useHospital();
+function Home({ user, setSession, setEspecialidad }) {
+  const { citasPaciente, getCitasPorPaciente } = useHospital();
+
+  useEffect(() => {
+    getCitasPorPaciente(user?.id);
+  }, [user?.id]);
+
+  useEffect(() => {
+    console.log(citasPaciente);
+  }, [citasPaciente]);
+
   return (
     <>
       <Navbar username={user?.name} setSession={setSession} />
@@ -17,9 +26,9 @@ function Home({ session, setSession }) {
           <NavbarFiltrar />
           <div>
             <div className="h-full gap-4 grid grid-cols-2 content-start">
-              {citasPaciente.map((cita, index) => {
-                <CardMisCitas cita={cita} key={index} />;
-              })}
+              {citasPaciente.map((cita, index) => (
+                <CardMisCitas cita={cita} key={index} />
+              ))}
             </div>
             <div className="join pt-3">
               <button className="join-item btn">«</button>
@@ -31,7 +40,7 @@ function Home({ session, setSession }) {
         <div className="w-2/5 h-full rounded-lg p-4 border border-gray-100 block">
           <NavbarAgregar />
           <div>
-            <CardNewCita />
+            <CardNewCita setEspecialidad={setEspecialidad} />
           </div>
           <div className="join join-vertical"></div>
         </div>

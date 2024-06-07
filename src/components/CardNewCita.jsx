@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useHospital } from "../context/HospitalContext";
+import { Link } from "react-router-dom";
 
-const CardNewCita = () => {
+const CardNewCita = ({ setEspecialidad }) => {
   const { citasDisponibles, getAppointmentsAvailable } = useHospital();
 
   const especialidadesMostradas = new Set();
@@ -12,7 +13,9 @@ const CardNewCita = () => {
     getAppointmentsAvailable();
   }, []);
 
-  console.log(citasDisponibles);
+  const handleClickEspecialidad = (especialidad) => {
+    setEspecialidad(especialidad);
+  };
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -34,12 +37,15 @@ const CardNewCita = () => {
                     {cita.doctor.specialization.name}
                   </th>
                   <td className="px-6 py-4">
-                    <a
-                      href="#"
+                    <Link
+                      to="/agendar"
                       className="font-medium text-cyan-400 dark:text-blue-500 hover:underline"
+                      onClick={() =>
+                        handleClickEspecialidad(cita.doctor.specialization.name)
+                      }
                     >
                       Ver
-                    </a>
+                    </Link>
                   </td>
                 </tr>
               );

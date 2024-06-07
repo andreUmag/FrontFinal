@@ -4,18 +4,13 @@ import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { useHospital } from "../context/HospitalContext";
 
-function Login({ session, setSession }) {
-  const { auth, getuserByIdCard, user, setUser } = useHospital();
+function Login({ session, setSession, setUser }) {
+  const { auth, getuserByIdCard } = useHospital();
   const [idCard, setIdCard] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("email:", user?.email, "idCard:", idCard, "contra", password);
-  }, [idCard, password]);
 
   const initializeAuth = async (e) => {
     e.preventDefault();

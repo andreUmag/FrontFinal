@@ -5,6 +5,7 @@ import { supabase } from "./supabase";
 function ApiHospital() {
   const urlBase = "http://localhost:8080/api/v1";
   const [user, setUser] = useState();
+  const [especialidad, setEspecialidad] = useState(null);
   const [citasDisponibles, setCitasDisponibles] = useState([]);
   const [citasPaciente, setCitasPaciente] = useState([]);
   const [tipoDocumento, setTipoDocumento] = useState([]);
@@ -15,6 +16,7 @@ function ApiHospital() {
     getScheduledAppointment();
     getTiposDocumento();
     getEps();
+    getCitasPorPaciente();
   }, []);
 
   const auth = async (email, password, setSession) => {
@@ -106,15 +108,24 @@ function ApiHospital() {
 
   const getCitasPorEspecialidad = async (especialidad) => {
     try {
-      const response = await axios.get("/specialization", {
-        params: {
-          specialization: especialidad,
-        },
-      });
+      const response = await axios.get(
+        `${urlBase}/appointments-available/specialization/${especialidad}`
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching citas:", error);
       return [];
+    }
+  };
+
+  const getCitasPorPaciente = async (id) => {
+    try {
+      const response = await axios.get(
+        `${urlBase}/scheduled_appointment/patient/${id}`
+      );
+      setCitasPaciente(response.data);
+    } catch (error) {
+      console.error("Error fetching citas:", error);
     }
   };
 
@@ -152,6 +163,8 @@ function ApiHospital() {
 
   return {
     register,
+    especialidad,
+    setEspecialidad,
     auth,
     authState,
     user,
@@ -173,6 +186,7 @@ function ApiHospital() {
     putCitasPaciente,
     deleteCitasPaciente,
     getCitasPorEspecialidad,
+    getCitasPorPaciente,
   };
 }
 
