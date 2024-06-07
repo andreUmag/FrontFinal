@@ -8,13 +8,16 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VerCita from "./pages/VerCita";
 import HomeDoctor from "./pages/HomeDoctor.jsx";
+import Agendar from "./pages/Agendar.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <HomeDoctor />
+    <Agendar/>
+    {/* <HomeDoctor /> */}
+      {/* <HomeDoctor /> */}
       {/* <VerCita /> */}
       {/* <Home/> */}
       {/* <NuevaCita/> */}
