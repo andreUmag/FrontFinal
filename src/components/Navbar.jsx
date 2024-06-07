@@ -1,11 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({username}) => {
+const Navbar = ({ username, setSession }) => {
+  const navigate = useNavigate();
+
+  const handleClickLink = async () => {
+    try {
+      await signOut();
+      setSession(null);
+    } catch (error) {
+      console.error("Error during logout:", error);
+      return;
+    }
+
+    navigate("/");
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <img
-            className="size-20 mr-4"
+          className="size-20 mr-4"
           alt="Tailwind CSS Navbar component"
           src="https://acortar.link/WS0CCn"
         />
@@ -13,7 +28,10 @@ const Navbar = ({username}) => {
       </div>
       <div className="flex-none gap-2">
         <div className="form-control text-lg">
-            <p className="flex gap-2"><p className="text-cyan-400">!HOLA!</p>{username}</p>
+          <p className="flex gap-2">
+            <p className="text-cyan-400">!HOLA!</p>
+            {username}
+          </p>
         </div>
         <div className="dropdown dropdown-end">
           <div
@@ -40,7 +58,7 @@ const Navbar = ({username}) => {
             </li>
 
             <li>
-              <a>Salir</a>
+              <a onClick={() => handleClickLink()}>Salir</a>
             </li>
           </ul>
         </div>
