@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -8,22 +8,42 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VerCita from "./pages/VerCita";
 import HomeDoctor from "./pages/HomeDoctor.jsx";
-import Agendar from "./pages/Agendar.jsx";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HospitalProvider } from "./context/HospitalContext.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [session, setSession] = useState(null);
 
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
   return (
-    <>
-    <Agendar/>
-    {/* <HomeDoctor /> */}
-      {/* <HomeDoctor /> */}
-      {/* <VerCita /> */}
-      {/* <Home/> */}
-      {/* <NuevaCita/> */}
-      {/* <Login/> */}
-      {/* <Register/> */}
-    </>
+    <HospitalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={session ? <Home /> : <Navigate to="/login" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/login"
+            element={<Login session={session} setSession={setSession} />}
+          />
+        </Routes>
+        <Routes>
+          <Route path="/registro" element={<Register />} />
+        </Routes>
+        <Routes>
+          <Route path="/nueva-cita" element={<NuevaCita />} />
+        </Routes>
+
+        {/* <VerCita /> */}
+        {/* <Home/> */}
+        {/* <NuevaCita/> */}
+      </BrowserRouter>
+    </HospitalProvider>
   );
 }
 
